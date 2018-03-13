@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.autotest" use-default-filters="false">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <context:property-placeholder location="classpath*:/conf/datasource.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${mysql.user}"></property>
+        <property name="password" value="${mysql.password}"></property>
+        <property name="driverClass" value="${mysql.driverClass}"></property>
+        <property name="jdbcUrl" value="${mysql.jdbcUrl}"></property>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="packagesToScan" value="com.autotest.entity"></property>
+        <property name="hibernateProperties">
+            <props>
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>-->
+                <!--<prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>-->
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+                <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">${hibernate.temp.use_jdbc_metadata_defaults}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+</beans>
