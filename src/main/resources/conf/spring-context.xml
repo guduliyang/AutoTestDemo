@@ -23,11 +23,6 @@
         <property name="packagesToScan" value="com.autotest.entity"></property>
         <property name="hibernateProperties">
             <props>
-                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>-->
-                <!--<prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>-->
-                <!--<prop key="hibernate.show_sql">true</prop>-->
-                <!--<prop key="hibernate.format_sql">true</prop>-->
-                <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.current_session_context_class">${hibernate.current_session_context_class}</prop>
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
